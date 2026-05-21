@@ -1,15 +1,19 @@
 class Solution {
     public int firstMatchingIndex(String s) {
-        int l = 0;
-        int r = s.length()-1;
+        int n = s.length();
 
-        while(l <= r){
-            if(s.charAt(l) == s.charAt(r)){
-                return l;
+        int left = 0;
+        int right = n - 1;
+
+        while(left <= right){
+            if(s.charAt(left) == s.charAt(right)){
+                return left;
             }
-            l++;
-            r--;
+
+            left++;
+            right--;
         }
+
         return -1;
     }
 }
