@@ -1,8 +1,8 @@
 class Solution {
     public int singleNonDuplicate(int[] nums) {
-        int result = 0;
+        int result = 0 ;
         for(int num : nums){
-            result = result ^ num;
+            result ^= num;
         }
         return result;
     }
