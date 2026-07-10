@@ -1,19 +1,17 @@
 class Solution {
-    static {
-        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-            try (java.io.FileWriter fw = new java.io.FileWriter("display_runtime.txt")) {
-                fw.write("0");
-            } catch (Exception e) {
-            }
-        }));
-         }
     public int maxProfit(int[] prices) {
-        int minProf = Integer.MAX_VALUE ;
-        int maxProf = 0;
-        for(int price : prices){
-            minProf = Math.min(minProf , price);
-            maxProf = Math.max(maxProf , price-minProf);
+        int max_profit = 0;
+        int buy = prices[0];
+        for(int i = 1 ; i < prices.length ; i++){
+            if((prices[i] - buy) < 0){
+                buy = prices[i];
+                max_profit = Math.max(max_profit , (prices[i] - buy));
+            }
+            else{
+                max_profit = Math.max(max_profit , (prices[i] - buy));
+            }
         }
-        return maxProf;
+        return max_profit;
+
     }
 }
