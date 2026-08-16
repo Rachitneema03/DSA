@@ -1,6 +1,6 @@
 /**
  * Definition for singly-linked list.
- * class ListNode {
+ * public class ListNode {
  *     int val;
  *     ListNode next;
  *     ListNode() {}
@@ -10,39 +10,23 @@
  */
 class Solution {
     public ListNode reverseKGroup(ListNode head, int k) {
-        ListNode dummy = new ListNode(0);
-        dummy.next = head;
-        ListNode groupPrev = dummy;
+        Stack <Integer> st = new Stack<>();
+        ListNode temp = head;
+        ListNode temp1 = head;
 
-        while (true) {
-            ListNode kth = getKth(groupPrev, k);
-            if (kth == null) break;
-            ListNode groupNext = kth.next;
-
-            // reverse the group
-            ListNode prev = groupNext;
-            ListNode curr = groupPrev.next;
-            while (curr != groupNext) {
-                ListNode next = curr.next;
-                curr.next = prev;
-                prev = curr;
-                curr = next;
+        while(temp != null){
+            st.push(temp.val);
+            if(st.size() == k){
+                int steps = k;
+                while(steps > 0){
+                    temp1.val = st.pop();
+                    temp1 = temp1.next;
+                    steps--;
+                }
             }
-
-            // reconnect
-            ListNode tmp = groupPrev.next; // old head, now tail of reversed group
-            groupPrev.next = kth;          // new head of reversed group
-            groupPrev = tmp;               // move to tail for next iteration
+            temp = temp.next;
         }
+        return head;
 
-        return dummy.next;
-    }
-
-    private ListNode getKth(ListNode curr, int k) {
-        while (curr != null && k > 0) {
-            curr = curr.next;
-            k--;
-        }
-        return curr;
     }
 }
