@@ -1,22 +1,12 @@
 class Solution {
-    public boolean uniformArray(int[] nums) {
-        int smallestOdd = Integer.MAX_VALUE;
-
-        for (int num : nums) {
-            if (num % 2 == 1)
-                smallestOdd = Math.min(smallestOdd, num);
+    public boolean uniformArray(int[] a) {
+        int mn = Integer.MAX_VALUE;
+        int oddCnt = 0;
+        for (int x : a) {
+            mn = Math.min(mn, x);
+            if (x % 2 == 1) oddCnt++;
         }
-
-        // Already all even
-        if (smallestOdd == Integer.MAX_VALUE)
-            return true;
-
-        // Check whether every even number can become odd
-        for (int num : nums) {
-            if (num % 2 == 0 && num <= smallestOdd)
-                return false;
-        }
-
-        return true;
+        // min Element is ODD(remaining even > min) or All Even!
+        return mn % 2 != 0 || oddCnt == 0;
     }
 }
